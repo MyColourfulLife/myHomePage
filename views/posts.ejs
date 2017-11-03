@@ -1,0 +1,64 @@
+<!-- 导航栏 -->
+<div class="main-header">
+    <div class="container">
+        <h1>技术的世界很单纯</h1>
+    </div>
+</div>
+
+<!-- 最新10条记录 -->
+<div class="panel panel-primary col-md-8">
+    <div class="panel-heading">
+        <h3 class="panel-title">最近更新</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="list-group" v-for="item in top10Items">
+            <li class="list-group-item">
+                <a v-bind:href="item">{{ item }}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- 内容分类 -->
+<div class="panel panel-success col-md-4">
+    <div class="panel-heading">
+        <h3 class="panel-title">分类导航</h3>
+    </div>
+    <div class="list-group"></div>
+    <a href="#" class="list-group-item ">
+        <span class="badge">66</span>
+        JavaScript
+    </a>
+    <a href="#" class="list-group-item">
+        <span class="badge">66</span>
+        Python</a>
+    <a href="#" class="list-group-item">
+        <span class="badge">66</span>
+        Swift</a>
+    <a href="#" class="list-group-item">
+        <span class="badge">66</span>
+        Objective-C</a>
+</div>
+
+<script>
+
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            top10Items: []
+        },
+        methods: {
+            fetchTop10() {
+                axios.get('/api/top10').then(function (res) {
+                    vm.top10Items = res.data.items;
+                    console.log(vm.top10Items);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
+    });
+
+    vm.fetchTop10();
+
+</script>
