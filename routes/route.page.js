@@ -16,6 +16,11 @@ router.get("/posts", function(req, res, next) {
   res.render("posts", { title: "Express" });
 });
 
+/* GET category page. */
+router.get("/posts/category", function(req, res, next) {
+  let id = req.query.id;
+  res.render("categoryPage", { categoryid :id });
+});
 
 
 module.exports = router;

@@ -15,4 +15,10 @@ router.get('/top10',function (req,res,next) {
     });
 });
 
+router.get('/api/posts/category',function(req,res,next){
+    let id = req.query.id;
+
+    
+});
+
 module.exports = router;

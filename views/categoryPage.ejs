@@ -1,0 +1,59 @@
+<div class="container">
+     <!-- Split button -->
+     <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default">操作</button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="/posts/create">新建</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-8 col-md-offset-2">
+              <ul class="list-group" v-for="item in postLists">
+                  <li class="list-group-item">
+                    <a v-bind:href="item.url">{{ item.title }}</a>
+                  </li>
+                </ul>
+          </div>    
+</div>
+
+<script>
+        var postId = '<%= id %>';
+        var vm = new Vue({
+          el: '#app',
+          data: {
+            title: '',
+            content: ''
+          },
+          created () {
+            axios.get('/api/posts/category?id=' + postId)
+              .then(function(response) {
+                vm.title = response.data.post.title;
+                vm.content = response.data.post.content;
+              })
+              .catch(function(err) {
+                alert(err);
+              })
+          },
+          methods: {
+            submit () {
+            axios.post('/api/posts/edit',
+              {
+                id: postId,
+                title: vm.title,
+                content: vm.content
+              })
+              .then(function(response) {
+                alert(JSON.stringify(response.data));
+              })
+              .catch(function(err) {
+                alert(err);
+              })
+            }
+          }
+        });
+        </script>
