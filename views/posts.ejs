@@ -21,44 +21,51 @@
 
 <!-- 内容分类 -->
 <div class="panel panel-success col-md-4">
+
     <div class="panel-heading">
         <h3 class="panel-title">分类导航</h3>
     </div>
-    <div class="list-group"></div>
-    <a href="#" class="list-group-item ">
-        <span class="badge">66</span>
-        JavaScript
-    </a>
-    <a href="#" class="list-group-item">
-        <span class="badge">66</span>
-        Python</a>
-    <a href="#" class="list-group-item">
-        <span class="badge">66</span>
-        Swift</a>
-    <a href="#" class="list-group-item">
-        <span class="badge">66</span>
-        Objective-C</a>
-</div>
+
+    <div class="list-group" v-for="item in categories">
+            <a href="/categoryPage" class="list-group-item ">
+                {{item.type}}
+                </a>
+    </div>
+
+    
 
 <script>
 
     var vm = new Vue({
         el: '#app',
         data: {
-            top10Items: []
+            top10Items: [],
+            categories: []
         },
         methods: {
             fetchTop10() {
-                axios.get('/api/top10').then(function (res) {
+                axios.get('/api/top10')
+                .then(function (res) {
                     vm.top10Items = res.data.items;
                     console.log(vm.top10Items);
                 }).catch(function (error) {
                     console.log(error);
+                });
+            },
+            fetchCategories() {
+                axios.get('/api/posts/categories')
+                .then(function (res) {
+                    vm.categories = res.data.categorylist
+                    console.log(vm.categories);
+                })
+                .catch(function (err) {
+                    alert(err.message);
                 });
             }
         }
     });
 
     vm.fetchTop10();
+    vm.fetchCategories();
 
 </script>
