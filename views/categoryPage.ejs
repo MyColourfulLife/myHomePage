@@ -38,7 +38,7 @@
         .then(function (response) {
           vm.postLists = response.data.postLists;
           vm.postLists.forEach(function (element) {
-            element.url = '/api/posts/show?id=' + element._id;
+            element.url = '/posts/show?id=' + element._id;
           }, this);
         })
         .catch(function (err) {

@@ -13,7 +13,7 @@
     <div class="panel-body">
         <ul class="list-group" v-for="item in top10Items">
             <li class="list-group-item">
-                <a v-bind:href="item">{{ item.title }}</a>
+                <a v-bind:href="item.url">{{ item.title }}</a>
             </li>
         </ul>
     </div>
@@ -45,6 +45,9 @@
                     axios.get('/api/top10')
                         .then(function (res) {
                             vm.top10Items = res.data.items;
+                            vm.top10Items.forEach(function (element) {
+                                element.url = '/posts/show?id=' + element._id;
+                            });
                         }).catch(function (error) {
                             console.log(error);
                         });
