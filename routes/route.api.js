@@ -47,7 +47,7 @@ router.get("/posts/categories", function(req, res, next) {
   });
 });
 
-
+/** 获取单个分类的数据*/
 router.get('/posts/category',function (req,res,next) {
     let id = req.query.id;
     PostModel.find({categoryId:id},function(err,articleLists) {

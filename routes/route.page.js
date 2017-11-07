@@ -25,5 +25,9 @@ router.get("/posts/category", function(req, res, next) {
   res.render('categoryPage',{parmas});
 });
 
+/* GET edit page. */
+
+
+
 
 module.exports = router;
