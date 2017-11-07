@@ -27,45 +27,45 @@
     </div>
 
     <div class="list-group" v-for="item in categories">
-            <a href="/categoryPage" class="list-group-item ">
-                {{item.type}}
-                </a>
+        <a v-bind:href="item.url" class="list-group-item ">
+            {{item.type}}
+        </a>
     </div>
 
-    
+    <script>
 
-<script>
-
-    var vm = new Vue({
-        el: '#app',
-        data: {
-            top10Items: [],
-            categories: []
-        },
-        methods: {
-            fetchTop10() {
-                axios.get('/api/top10')
-                .then(function (res) {
-                    vm.top10Items = res.data.items;
-                    console.log(vm.top10Items);
-                }).catch(function (error) {
-                    console.log(error);
-                });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                top10Items: [],
+                categories: []
             },
-            fetchCategories() {
-                axios.get('/api/posts/categories')
-                .then(function (res) {
-                    vm.categories = res.data.categorylist
-                    console.log(vm.categories);
-                })
-                .catch(function (err) {
-                    alert(err.message);
-                });
+            methods: {
+                fetchTop10() {
+                    axios.get('/api/top10')
+                        .then(function (res) {
+                            vm.top10Items = res.data.items;
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                },
+                fetchCategories() {
+                    axios.get('/api/posts/categories')
+                        .then(function (res) {
+                            vm.categories = res.data.categorylist;
+                            vm.categories.forEach(function (element) {
+                                element.url = '/posts/category?id=' + element._id + '&type=' + element.type;
+                            }, this);
+                            console.log(vm.categories);
+                        })
+                        .catch(function (err) {
+                            alert(err.message);
+                        });
+                }
             }
-        }
-    });
+        });
 
-    vm.fetchTop10();
-    vm.fetchCategories();
+        vm.fetchTop10();
+        vm.fetchCategories();
 
-</script>
+    </script>

@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var CategoryModel = require("../models/category");
+var PostModel = require("../models/post");
 
 /** 获取前10个数据 */
 router.get("/top10", function(req, res, next) {
@@ -30,8 +31,8 @@ router.get("/top10", function(req, res, next) {
 
 /** 获取分类*/
 router.get("/posts/categories", function(req, res, next) {
-  console.log("i am coming");
-  CategoryModel.find({}, {}, function(err, categories) {
+  CategoryModel.find({}, function(err, categories) {
+
     if (err) {
       res.json({
         sucess: false,
@@ -46,8 +47,23 @@ router.get("/posts/categories", function(req, res, next) {
   });
 });
 
-router.get("/posts/category", function(req, res, next) {
-  let id = req.query.id;
+
+router.get('/posts/category',function (req,res,next) {
+    let id = req.query.id;
+    PostModel.find({categoryId:id},function(err,articleLists) {
+      if (err) {
+        res.json({
+          sucess:false,
+          reason:err.message
+        });
+      }else{
+        res.json({
+            sucess:true,
+            postLists:articleLists
+        });
+      }
+    });
 });
+
 
 module.exports = router;

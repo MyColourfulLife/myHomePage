@@ -1,4 +1,6 @@
+
 <div class="container">
+    <h2> <%= parmas.type %> </h2>
      <!-- Split button -->
      <div class="btn-group pull-right">
             <button type="button" class="btn btn-default">操作</button>
@@ -22,18 +24,20 @@
 </div>
 
 <script>
-        var postId = '<%= id %>';
+
+        var parmas = '<%= parmas %>';
         var vm = new Vue({
           el: '#app',
           data: {
-            title: '',
-            content: ''
+           postLists:[]
           },
           created () {
-            axios.get('/api/posts/category?id=' + postId)
+            axios.get('/api/posts/category?id=' + parmas.categoryId)
               .then(function(response) {
-                vm.title = response.data.post.title;
-                vm.content = response.data.post.content;
+                vm.postLists = response.data.postLists;
+                vm.postLists.forEach(function(element) {
+                  element.url = '/api/posts/show?id=' + element._id;
+                }, this);
               })
               .catch(function(err) {
                 alert(err);
