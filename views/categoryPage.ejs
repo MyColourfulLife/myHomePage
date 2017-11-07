@@ -11,7 +11,7 @@
     </button>
     <ul class="dropdown-menu">
       <li>
-        <a href="/posts/create">新建</a>
+        <a v-bind:href="createdUrl" >新建</a>
       </li>
     </ul>
   </div>
@@ -25,15 +25,16 @@
 </div>
 
 <script>
-
-  var parmas = '<%= parmas %>';
+  var categoryId = '<%= parmas.categoryId %>';
   var vm = new Vue({
     el: '#app',
     data: {
-      postLists: []
+      postLists: [],
+      createdUrl: '/posts/create?categoryId=' + categoryId
     },
-    created() {
-      axios.get('/api/posts/category?id=' + parmas.categoryId)
+    methods:{
+      fetchdata() {
+      axios.get('/api/posts/category?id=' + categoryId)
         .then(function (response) {
           vm.postLists = response.data.postLists;
           vm.postLists.forEach(function (element) {
@@ -44,5 +45,8 @@
           alert(err);
         })
     }
+    }
+    
   });
+  vm.fetchdata();
 </script>

@@ -26,7 +26,11 @@ router.get("/posts/category", function(req, res, next) {
 });
 
 /* GET edit page. */
-
+router.get('/posts/create',function (req,res,next) {
+  let categoryId = req.query.categoryId;
+  console.log(categoryId,"类别id");
+  res.render('create',{categoryId});
+});
 
 
 

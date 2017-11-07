@@ -13,7 +13,7 @@
     <div class="panel-body">
         <ul class="list-group" v-for="item in top10Items">
             <li class="list-group-item">
-                <a v-bind:href="item">{{ item }}</a>
+                <a v-bind:href="item">{{ item.title }}</a>
             </li>
         </ul>
     </div>
@@ -56,7 +56,7 @@
                             vm.categories.forEach(function (element) {
                                 element.url = '/posts/category?id=' + element._id + '&type=' + element.type;
                             }, this);
-                            console.log(vm.categories);
+                            console.log(vm.categories,'vm.categories');
                         })
                         .catch(function (err) {
                             alert(err.message);

@@ -5,28 +5,27 @@ var PostModel = require("../models/post");
 
 /** 获取前10个数据 */
 router.get("/top10", function(req, res, next) {
-  // let numbers = req.query.numbers || 10;
+  let numbers = req.query.numbers || 10;
 
-  //     CategoryModel.find({},function (err,res) {
-  //         if (res.length > numbers) {
-  //             res.slice(0,);
-  //         }
-  //     });
+  PostModel.find({},function (err,docs) {
 
-  res.json({
-    items: [
-      "page1",
-      "page2",
-      "page3",
-      "page4",
-      "page5",
-      "page6",
-      "page7",
-      "page8",
-      "page9",
-      "page10"
-    ]
-  });
+    if (err) {
+        res.json({
+            sucess:false,
+            reason:err.message
+        })
+        return;
+    }
+
+         var docs = docs;
+          if (docs.length > numbers) {
+                docs = docs.slice(0,10);
+          }
+          res.json({
+              sucess:true,
+            items:docs
+        });
+      });
 });
 
 /** 获取分类*/
@@ -49,7 +48,7 @@ router.get("/posts/categories", function(req, res, next) {
 
 /** 获取单个分类的数据*/
 router.get('/posts/category',function (req,res,next) {
-    let id = req.query.id;
+    let id = ' ' + req.query.id + ' ';
     PostModel.find({categoryId:id},function(err,articleLists) {
       if (err) {
         res.json({
@@ -62,8 +61,37 @@ router.get('/posts/category',function (req,res,next) {
             postLists:articleLists
         });
       }
+      console.log(articleLists,"这是articleLists");
     });
 });
+
+/** 发布文章*/
+router.post('/v1/posts',function (req,res,next) { 
+   var title= req.body.title;
+   var content= req.body.content;
+   var categoryId=req.body.categoryId;
+   console.log(title,content,categoryId);
+   var post = new PostModel();
+   post.title = title;
+   post.content = content;
+   post.categoryId = categoryId;
+
+   post.save(function (err,doc) {
+       if (err) {
+           console.log(res);
+           res.json({
+               sucess:false,
+               reason:err.message
+           });
+       } else {
+           res.json({
+               sucess:true,
+               post:doc
+           });
+       }
+   });
+});
+
 
 
 module.exports = router;
