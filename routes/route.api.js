@@ -17,7 +17,7 @@ router.get("/top10", function(req, res, next) {
         return;
     }
 
-         var docs = docs;
+         var docs = docs.reverse();
           if (docs.length > numbers) {
                 docs = docs.slice(0,10);
           }
@@ -58,7 +58,7 @@ router.get('/posts/category',function (req,res,next) {
       }else{
         res.json({
             sucess:true,
-            postLists:articleLists
+            postLists:articleLists.reverse()
         });
       }
       console.log(articleLists,"这是articleLists");
@@ -92,6 +92,38 @@ router.post('/v1/posts',function (req,res,next) {
    });
 });
 
+/** 修改文章*/
+router.patch('/v1/posts/:id',function (req,res,next) {
+    var id = req.params.id;
+    var title = req.body.title;
+    var content = req.body.content;
+
+    PostModel.findOneAndUpdate({ _id: id }, { title, content }, function(err) {
+        if (err) {
+          res.json({
+              sucess:false,
+              reason:err.message
+          });
+        } else {
+          res.json({});
+        }
+      });
+});
+
+/** 获取文章数据*/
+router.get('/v1/posts/:id',function (req,res,next) {
+    var id = req.params.id;
+    PostModel.findOne({_id:id},function (err,post,next) {
+        if (err) {
+            res.json({
+                sucess:false,
+                reason:err.message
+            });
+          } else {
+            res.json({ post });
+          }
+    });
+});
 
 
 module.exports = router;
