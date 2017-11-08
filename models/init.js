@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Category = require('./category');
 
-var port = '32768';
+var port = '27017';
 var mongodbUrl = `mongodb://localhost:${port}/myblog`;
 
 
