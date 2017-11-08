@@ -1,4 +1,5 @@
 <div class="container">
+   
   <h2>
     <%= parmas.type %>
   </h2>
@@ -16,6 +17,7 @@
     </ul>
   </div>
   <div class="col-md-8 col-md-offset-2">
+      <p v-if="seen">作者还未更新呢</p>
     <ul class="list-group" v-for="item in postLists">
       <li class="list-group-item">
         <a v-bind:href="item.url">{{ item.title }}</a>
@@ -30,7 +32,8 @@
     el: '#app',
     data: {
       postLists: [],
-      createdUrl: '/posts/create?categoryId=' + categoryId
+      createdUrl: '/posts/create?categoryId=' + categoryId,
+      seen:false
     },
     methods:{
       fetchdata() {
@@ -40,6 +43,7 @@
           vm.postLists.forEach(function (element) {
             element.url = '/posts/show?id=' + element._id;
           }, this);
+          vm.seen = !vm.postLists.length;
         })
         .catch(function (err) {
           alert(err);
