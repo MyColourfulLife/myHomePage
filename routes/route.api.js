@@ -61,7 +61,7 @@ router.get('/posts/category',function (req,res,next) {
             postLists:articleLists.reverse()
         });
       }
-      console.log(articleLists,"这是articleLists");
+
     });
 });
 
