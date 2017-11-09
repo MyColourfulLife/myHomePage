@@ -22,3 +22,13 @@ a {
   margin-top: 0;
   color: #fff;
 }
+
+#myModal .modal-dialog {
+  width: 288px;
+  height: 288px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -144px;
+  margin-top: -144px;
+}
