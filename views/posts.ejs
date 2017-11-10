@@ -1,10 +1,8 @@
 <!-- 导航栏 -->
 <div class="main-header">
-    <div class="container">
-        <h1>技术的世界很单纯</h1>
-    </div>
+   <p>技术的世界很单纯</p>
 
-    <ul class="nav nav-pills navbar-right" style="margin-right:0px">
+    <ul class="nav nav-pills navbar-right" style="margin-right:0px" id="navigation">
         <li role="presentation">
             <a href="https://github.com/MyColourfulLife">Github</a>
         </li>
@@ -18,32 +16,44 @@
     </ul>
 </div>
 
-<!-- 最新10条记录 -->
-<div class="panel panel-primary col-md-8">
-    <div class="panel-heading">
-        <h3 class="panel-title">最近更新</h3>
+<div class="navContent">
+    <div class="recentItem">
+        <div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">最近更新</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group" v-for="item in top10Items">
+                        <li class="list-group-item">
+                            <a v-bind:href="item.url">{{ item.title }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="panel-body">
-        <ul class="list-group" v-for="item in top10Items">
-            <li class="list-group-item">
-                <a v-bind:href="item.url">{{ item.title }}</a>
-            </li>
-        </ul>
+    <div class="category">
+        <div class="panel panel-success">
+            
+                <div class="panel-heading">
+                    <h3 class="panel-title">分类导航</h3>
+                </div>
+            
+                <div class="list-group" v-for="item in categories">
+                    <a v-bind:href="item.url" class="list-group-item ">
+                        {{item.type}}
+                    </a>
+                </div>
+                </div>
     </div>
 </div>
 
+<!-- 最新10条记录 -->
+
+
 <!-- 内容分类 -->
-<div class="panel panel-success col-md-4">
 
-    <div class="panel-heading">
-        <h3 class="panel-title">分类导航</h3>
-    </div>
-
-    <div class="list-group" v-for="item in categories">
-        <a v-bind:href="item.url" class="list-group-item ">
-            {{item.type}}
-        </a>
-    </div>
 
 
     <!-- 按钮触发模态框 -->

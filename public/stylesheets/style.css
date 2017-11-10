@@ -1,26 +1,67 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
+.main{
+  margin: 0px 300px;
+}
+/* 首页 */
+.home{
+  font-size: 24px;
+  margin-top: 50px;
+  background: #ccc;
+  padding: 20px;
+}
+.home h3{
+  font-size: 18px;
+}
+.home h1,.home h3,.home p{
+  padding: 10px 0px;
+}
+
+/* 导航页 */
+#navigation{
+  margin-top: 20px;
+}
+/* #navigation a{
+  color: white;
+} */
+.navContent{
+  width: 100%;
+  display: -webkit-flex;
+  display: flex;
+}
+.navContent .recentItem{
+  -webkit-flex:1;
+  flex:1;
+}
+.navContent .recentItem>div{
+  padding-right: 20px;
+}
+.navContent .category{
+  width: 200px;
+  flex: none;
+  -webkit-flex:none;
+}
 
 .main-header {
-  padding-top: 60px;
-  padding-bottom: 60px;
+  height: 135px;
   margin-bottom: 30px;
   font-size: 24px;
   text-align: left;
   background: url(http://staticcdn.igetget.com/www/newpc/dist/img/downlod-bg.5aac54d.png) 50% no-repeat;
   background-size: cover;
+  margin-top: 50px;
 }
 
 
-.main-header h1 {
-  margin-top: 0;
+.main-header p{
+ text-indent: 20px;
   color: #fff;
+  padding-top: 20px;
 }
 
 #myModal .modal-dialog {
@@ -31,4 +72,31 @@ a {
   left: 50%;
   margin-left: -144px;
   margin-top: -144px;
+}
+
+
+
+
+/* 媒体查询 */
+
+@media screen and (max-width: 900px) {
+  .main {
+      margin: 0 20px;
+  }
+  #navigation{
+    font-size: 20px;
+  }
+.navContent{
+  -webkit-flex-direction:column-reverse;
+  flex-direction: column-reverse
+}
+.navContent .category{
+  -webkit-flex:1;
+  flex: 1;
+  width: 100%;
+} 
+.navContent .recentItem>div{
+  padding-right: 0px;
+}
+
 }
