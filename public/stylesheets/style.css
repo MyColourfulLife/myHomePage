@@ -46,6 +46,34 @@ a {
   flex: none;
   -webkit-flex:none;
 }
+.navContent .category .navApp{
+  display: none;
+}
+
+
+/* 详情页 */
+.btn_group {
+  width: 120px;
+  height: 35px;
+  display: -webkit-flex;
+  display: flex;
+  border-radius: 5px;
+  background:blue;
+  float: right;
+}
+.btn_group>div{
+  flex: 1;
+  -webkit-flex:1;
+}
+.btn_group>div>a{
+  display: inline-block;
+  width: 100%;
+  line-height: 35px;
+  text-align: center;
+  font-size: 18px;
+  color: white;
+}
+
 
 .main-header {
   height: 135px;
@@ -84,7 +112,7 @@ a {
       margin: 0 20px;
   }
   #navigation{
-    font-size: 20px;
+    font-size: 18px;
   }
 .navContent{
   -webkit-flex-direction:column-reverse;
@@ -95,6 +123,12 @@ a {
   flex: 1;
   width: 100%;
 } 
+.navContent .category .navWeb{
+  display: none;
+}
+.navContent .category .navApp{
+  display: block;
+}
 .navContent .recentItem>div{
   padding-right: 0px;
 }

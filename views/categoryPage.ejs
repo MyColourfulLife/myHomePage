@@ -1,10 +1,10 @@
-<div class="container">
+<div style="margin-top: 35px;">
    
   <h2>
     <%= parmas.type %>
   </h2>
   <!-- Split button -->
-  <div class="btn-group pull-right">
+  <!-- <div class="btn-group pull-right">
     <button type="button" class="btn btn-default">操作</button>
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <span class="caret"></span>
@@ -15,16 +15,36 @@
         <a v-bind:href="createdUrl" >新建</a>
       </li>
     </ul>
+  </div> -->
+
+  <div class="row">
+      <div class="btn_group col-md-2">
+          <div>
+              <a v-bind:href="createdUrl" >新建</a>
+          </div>
+          <!-- // TODO: 删除 -->
+          <!-- <div>
+                      <a href="#">删除</a>
+                  </div> -->
+
+      </div>
+
   </div>
-  <div class="col-md-8 col-md-offset-2">
-      <p v-if="seen">作者还未更新呢</p>
-    <ul class="list-group" v-for="item in postLists">
-      <li class="list-group-item">
-        <a v-bind:href="item.url">{{ item.title }}</a>
-      </li>
-    </ul>
+
+  <div class="row" style="margin-top:30px">
+      <div class="col-md-8 col-md-offset-2">
+          <p v-if="seen">作者还未更新呢</p>
+        <ul class="list-group" v-for="item in postLists">
+          <li class="list-group-item">
+            <a v-bind:href="item.url">{{ item.title }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-</div>
+
+
+
 
 <script>
   var categoryId = '<%= parmas.categoryId %>';
