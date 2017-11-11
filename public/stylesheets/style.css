@@ -85,6 +85,9 @@ a {
   margin-top: 50px;
 }
 
+.editBtn {
+  overflow: auto;
+}
 
 .main-header p{
  text-indent: 20px;
