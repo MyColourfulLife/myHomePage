@@ -1,8 +1,13 @@
+import { Error } from "mongoose";
+
 var express = require("express");
 var router = express.Router();
 var CategoryModel = require("../models/category");
 var PostModel = require("../models/post");
 var errorHandle = require('../common/errorHandle');
+var bcrypt = require('bcrypt');
+var UserModel = require('../models/user');
+var config = require('../config');
 
 /** 获取前10个数据 */
 router.get("/top10", function (req, res, next) {
@@ -108,5 +113,57 @@ router.get('/posts/:id', function (req, res, next) {
   });
 });
 
+
+/*POST signup user */
+router.post('/signup',function (req,res,next) {
+    var name = req.body.name;
+    var pass = req.body.pass;
+    var rePass = req.body.rePass;
+
+    if (pass !== rePass) {
+      return errorHandle(new Error('两次密码不对'),next);
+    }
+
+    var user = UserModel();
+    user.name = name;
+    user.pass = bcrypt.hashSync(pass,10);
+    user.save(function (err) {
+      if (err) {
+        errorHandle(err,next);
+      } else {
+        res.end();
+      }
+    });
+});
+
+/* POST signin user */
+router.post('/signin',function (req,res,next) {
+  var name = req.body.name || '';
+  var pass = req.body.pass || '';
+
+  UserModel.findOne({name},function (err,user) {
+    if (err || !user) {
+      return errorHandle(new Error('用户不存在'),next);
+    } else {
+      var isOK = bcrypt.compareSync(pass,user.pass);
+      if (!isOK) {
+        return errorHandle(new Error('输入的密码有误'),next);
+      }
+
+      var authToken = user._id;
+      var opts = {
+        path: '/',
+        maxAge: 1000 * 60 * 60 * 24 * 30,
+        signed:true,
+        httpOnly:true
+      };
+
+      res.cookie(cookie.cookieName,authToken,opts);
+      res.end();
+    }
+  });
+
+
+});
 
 module.exports = router;

@@ -1,11 +1,13 @@
 var express = require("express");
 var router = express.Router();
 var PostModel = require('../models/post');
+var config = require('../config');
 var marked = require('marked');
+
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
-  res.render("index", { title: "Express" });
+  res.render("index");
 });
 
 /* GET users listing. */
@@ -15,7 +17,7 @@ router.get("/users", function(req, res, next) {
 
 /* GET posts page. */
 router.get("/posts", function(req, res, next) {
-  res.render("posts", { title: "Express" });
+  res.render("posts");
 });
 
 /* GET category page. */
@@ -51,6 +53,23 @@ router.get('/posts/show',function (req,res,next) {
 router.get('/posts/edit',function (req,res,next) {
   var id = req.query.id;
   res.render('edit',{id});
+});
+
+/* GET signup page. */
+router.get('/signup',function (req,res,next) {
+  res.render('singup');
+});
+
+/* GET signin page. */
+router.get('/signin',function(req,res,next) {
+  res.render('signin');
+});
+
+
+/* GET signout page. */
+router.get('/signout',function(req,res,next) {
+  res.clearCookie(config.cookieName,{path:'/'});
+  res.redirect('/');
 });
 
 
