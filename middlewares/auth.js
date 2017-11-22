@@ -11,7 +11,7 @@ function authUser(req,res,next) {
             if (err) {
                 next();
             } else {
-                req.locals.currentUser = user;
+                res.locals.currentUser = user;
                 next();
             }
         });
