@@ -57,7 +57,7 @@ router.get('/posts/edit',function (req,res,next) {
 
 /* GET signup page. */
 router.get('/signup',function (req,res,next) {
-  res.render('singup');
+  res.render('signup');
 });
 
 /* GET signin page. */
