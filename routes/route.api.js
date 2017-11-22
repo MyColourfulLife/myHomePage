@@ -156,7 +156,7 @@ router.post('/signin',function (req,res,next) {
         httpOnly:true
       };
 
-      res.cookie(cookie.cookieName,authToken,opts);
+      res.cookie(config.cookieName,authToken,opts);
       res.end();
     }
   });
