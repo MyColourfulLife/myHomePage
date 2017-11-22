@@ -116,9 +116,15 @@
         },
         methods: {
             fetchTop10() {
-                axios.get('/api/top10')
-                    .then(function (res) {
-                        vm.top10Items = res.data.items;
+                axios.get('/api/v1/top10')
+                    .then(function (response) {
+                        if (response.status !== 200) {
+                           throw new Error('error!');
+                        }
+                        return response.data;
+                    })
+                    .then(function (data) {
+                        vm.top10Items = data.items;
                         vm.top10Items.forEach(function (element) {
                             element.url = '/posts/show?id=' + element._id;
                         });
@@ -127,9 +133,15 @@
                     });
             },
             fetchCategories() {
-                axios.get('/api/posts/categories')
-                    .then(function (res) {
-                        vm.categories = res.data.categorylist;
+                axios.get('/api/v1/posts/categories')
+                    .then(function (response) {
+                        if (response.status !== 200) {
+                            throw new Error('error!');
+                        }
+                        return response.data;
+                    })
+                    .then(function (data) {
+                        vm.categories = data.categorylist;
                         vm.categories.forEach(function (element) {
                             element.url = '/posts/category?id=' + element._id + '&type=' + element.type;
                         }, this);

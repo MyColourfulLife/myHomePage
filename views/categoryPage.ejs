@@ -57,7 +57,7 @@
     },
     methods:{
       fetchdata() {
-      axios.get('/api/posts/category?id=' + categoryId)
+      axios.get('/api/v1/posts/category?id=' + categoryId)
         .then(function (response) {
           vm.postLists = response.data.postLists;
           vm.postLists.forEach(function (element) {
