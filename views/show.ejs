@@ -14,7 +14,7 @@
 
 
 <div  style="margin-top: 35px;">
-
+    <% if(currentUser && currentUser._id.toString() === post.authorId.toString() ) { %>
     <div class="editBtn">
         <div class="btn_group col-md-2">
             <div>
@@ -28,7 +28,8 @@
         </div>
 
     </div>
-
+    <% } %>
+    
     <div  style="margin-top:30px;">
         <div >
             <h1>

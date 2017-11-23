@@ -70,6 +70,7 @@ router.post('/posts', function (req, res, next) {
   post.title = title;
   post.content = content;
   post.categoryId = categoryId;
+  post.authorId = res.locals.currentUser._id;
 
   post.save(function (err, doc) {
     if (err) {

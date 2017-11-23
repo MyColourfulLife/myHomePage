@@ -1,13 +1,9 @@
 var mongoose = require('mongoose');
 var Category = require('./category');
-
-var port = '27017';
-var mongodbUrl = `mongodb://localhost:${port}/myblog`;
-
-
+var config = require('../config');
 
 // 链接数据库 在app启动时引入
-mongoose.connect(mongodbUrl,{
+mongoose.connect(config.mongodbUrl,{
     useMongoClient:true
 },function (err) {
     if (err) {
