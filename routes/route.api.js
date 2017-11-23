@@ -65,7 +65,6 @@ router.post('/posts', function (req, res, next) {
   var title = req.body.title;
   var content = req.body.content;
   var categoryId = req.body.categoryId;
-  console.log(title, content, categoryId);
   var post = new PostModel();
   post.title = title;
   post.content = content;
