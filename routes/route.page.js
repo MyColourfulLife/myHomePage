@@ -61,7 +61,7 @@ router.get('/posts/delete',function (req,res,next) {
     if (err) {
       next(err);
     } else {
-      res.redirect('back');
+      res.redirect('/posts');
     }
   })
 });
