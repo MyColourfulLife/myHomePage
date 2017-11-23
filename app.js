@@ -11,7 +11,7 @@ var page = require('./routes/route.page');
 var api = require('./routes/route.api');
 var auth = require('./middlewares/auth');
 var config = require('./config');
-var errorHandel = require('./common/errorHandle');
+var errorHandle = require('./common/errorHandle');
 
 
 var app = express();
@@ -41,6 +41,6 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(errorHandel);
+app.use(errorHandle);
 
 module.exports = app;
