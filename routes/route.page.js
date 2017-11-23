@@ -58,7 +58,7 @@ router.get('/posts/edit',function (req,res,next) {
 router.get('/posts/delete',function (req,res,next) {
   var id = req.query.id;
   
-  PostModel.findOneAndRemove(id, function (err, res) {
+  PostModel.findOneAndRemove(id, function (err, doc) {
     if (err) {
       next(err);
     } else {
