@@ -21,9 +21,9 @@
                 <a href="/posts/edit?id=<%= post._id %>">编辑</a>
             </div>
             <!-- // TODO: 删除 -->
-            <!-- <div>
-                        <a href="#">删除</a>
-                    </div> -->
+            <div>
+                <a v-on:click"delete">删除</a>
+            </div>
 
         </div>
 
@@ -41,6 +41,33 @@
         </div>
     </div>
 
-
-
 </div>
+
+<script>
+   var id = '<%= post._id %>'
+   var vm = new Vue({
+       el: '#app',
+       methods: {
+        delete() {
+               axios.delete('/api/v1/posts/'+id)
+                   .then(function (response) {
+                       if (response.status !== 200) {
+                           throw new Error('error!');
+                       }
+                       return response.data;
+                   })
+                   .then(function (data) {
+                    window.history.back();
+                   })
+                   .catch(function (err) {
+                       if (err.response.data.error) {
+                           alert(err.response.data.error);
+                       } else {
+                           alert(err.message);
+                       }
+                       
+                   })
+           }
+       }
+   });
+</script>
