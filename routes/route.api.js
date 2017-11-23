@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var CategoryModel = require("../models/category");
 var PostModel = require("../models/post");
-var errorHandle = require('../common/errorHandle');
 var bcrypt = require('bcrypt');
 var UserModel = require('../models/user');
 var config = require('../config');
@@ -14,7 +13,7 @@ router.get("/top10", function (req, res, next) {
   PostModel.find({}, function (err, docs) {
 
     if (err) {
-      errorHandle(err, next);
+      next(err);
     } else {
       var docs = docs.reverse();
       if (docs.length > numbers) {
@@ -35,7 +34,7 @@ router.get("/posts/categories", function (req, res, next) {
   CategoryModel.find({}, function (err, categories) {
 
     if (err) {
-      errorHandle(err, next);
+      next(err);
     } else {
       res.json({
         sucess: true,
@@ -50,7 +49,7 @@ router.get('/posts/category', function (req, res, next) {
   let id = ' ' + req.query.id + ' ';
   PostModel.find({ categoryId: id }, function (err, articleLists) {
     if (err) {
-      errorHandle(err, next);
+      next(err);
     } else {
       res.json({
         sucess: true,
@@ -74,7 +73,7 @@ router.post('/posts', function (req, res, next) {
 
   post.save(function (err, doc) {
     if (err) {
-      errorHandle(err, next);
+      next(err);
     } else {
       res.json({
         sucess: true,
@@ -92,7 +91,7 @@ router.patch('/posts/:id', function (req, res, next) {
 
   PostModel.findOneAndUpdate({ _id: id }, { title, content }, function (err) {
     if (err) {
-      errorHandle(err, next);
+      next(err);
     } else {
       res.json({});
     }
@@ -104,7 +103,7 @@ router.get('/posts/:id', function (req, res, next) {
   var id = req.params.id;
   PostModel.findOne({ _id: id }, function (err, post, next) {
     if (err) {
-      errorHandle(err, next);
+      next(err);
     } else {
       res.json({ post });
     }
@@ -119,7 +118,7 @@ router.post('/signup',function (req,res,next) {
     var rePass = req.body.rePass;
 
     if (pass !== rePass) {
-      return errorHandle(new Error('两次密码不对'),next);
+      return next(new Error('两次密码不对'));
     }
 
     var user = UserModel();
@@ -127,7 +126,7 @@ router.post('/signup',function (req,res,next) {
     user.pass = bcrypt.hashSync(pass,10);
     user.save(function (err) {
       if (err) {
-        errorHandle(err,next);
+        next(err);
       } else {
         res.end();
       }
@@ -141,11 +140,11 @@ router.post('/signin',function (req,res,next) {
 
   UserModel.findOne({name},function (err,user) {
     if (err || !user) {
-      return errorHandle(new Error('用户不存在'),next);
+      return next(new Error('用户不存在'));
     } else {
       var isOK = bcrypt.compareSync(pass,user.pass);
       if (!isOK) {
-        return errorHandle(new Error('输入的密码有误'),next);
+        return next(new Error('输入的密码有误'));
       }
 
       var authToken = user._id;

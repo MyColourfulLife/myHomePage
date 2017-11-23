@@ -13,30 +13,34 @@
 
 <script>
     var vm = new Vue({
-        el:'#app',
-        data:{
-            name:'',
-            pass:''
+        el: '#app',
+        data: {
+            name: '',
+            pass: ''
         },
-        methods:{
+        methods: {
             submit() {
-                axios.post('/api/v1/signin',{
-                   name: vm.name,
-                   pass: vm.pass
+                axios.post('/api/v1/signin', {
+                    name: vm.name,
+                    pass: vm.pass
                 })
-                .then(function (response) {
-                    if (response.status !== 200) {
-                        throw new Error('error!');
-                    }
+                    .then(function (response) {
+                        if (response.status !== 200) {
+                            throw new Error('error!');
+                        }
 
-                    return response.data;
-                })
-                .then(function (data) {
-                    window.location = '/';
-                })
-                .catch(function (err) {
-                    alert(err);
-                });
+                        return response.data;
+                    })
+                    .then(function (data) {
+                        window.location = '/';
+                    })
+                    .catch(function (err) {
+                        if (err.response) {
+                            alert(err.response.data.error);
+                        } else {
+                            alert(err.message);
+                        }
+                    });
             }
         }
     });

@@ -1,5 +1,5 @@
 <div style="margin-top: 35px;">
-   
+
   <h2>
     <%= parmas.type %>
   </h2>
@@ -18,30 +18,30 @@
   </div> -->
 
   <div class="editBtn">
-      <div class="btn_group col-md-2">
-          <div>
-              <a v-bind:href="createdUrl" >新建</a>
-          </div>
-          <!-- // TODO: 删除 -->
-          <!-- <div>
+    <div class="btn_group col-md-2">
+      <div>
+        <a v-bind:href="createdUrl">新建</a>
+      </div>
+      <!-- // TODO: 删除 -->
+      <!-- <div>
                       <a href="#">删除</a>
                   </div> -->
 
-      </div>
+    </div>
 
   </div>
 
   <div class="" style="margin-top:30px">
-      <div class="col-md-8 col-md-offset-2">
-          <p v-if="seen">作者还未更新呢</p>
-        <ul class="list-group" v-for="item in postLists">
-          <li class="list-group-item">
-            <a v-bind:href="item.url">{{ item.title }}</a>
-          </li>
-        </ul>
-      </div>
+    <div class="col-md-8 col-md-offset-2">
+      <p v-if="seen">作者还未更新呢</p>
+      <ul class="list-group" v-for="item in postLists">
+        <li class="list-group-item">
+          <a v-bind:href="item.url">{{ item.title }}</a>
+        </li>
+      </ul>
     </div>
   </div>
+</div>
 
 
 
@@ -53,24 +53,28 @@
     data: {
       postLists: [],
       createdUrl: '/posts/create?categoryId=' + categoryId,
-      seen:false
+      seen: false
     },
-    methods:{
+    methods: {
       fetchdata() {
-      axios.get('/api/v1/posts/category?id=' + categoryId)
-        .then(function (response) {
-          vm.postLists = response.data.postLists;
-          vm.postLists.forEach(function (element) {
-            element.url = '/posts/show?id=' + element._id;
-          }, this);
-          vm.seen = !vm.postLists.length;
-        })
-        .catch(function (err) {
-          alert(err);
-        })
+        axios.get('/api/v1/posts/category?id=' + categoryId)
+          .then(function (response) {
+            vm.postLists = response.data.postLists;
+            vm.postLists.forEach(function (element) {
+              element.url = '/posts/show?id=' + element._id;
+            }, this);
+            vm.seen = !vm.postLists.length;
+          })
+          .catch(function (err) {
+            if (err.response) {
+              alert(err.response.data.error);
+            } else {
+              alert(err.message);
+            }
+          })
+      }
     }
-    }
-    
+
   });
   vm.fetchdata();
 </script>

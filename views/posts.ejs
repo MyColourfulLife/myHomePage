@@ -119,7 +119,7 @@
                 axios.get('/api/v1/top10')
                     .then(function (response) {
                         if (response.status !== 200) {
-                           throw new Error('error!');
+                            throw new Error('error!');
                         }
                         return response.data;
                     })
@@ -148,7 +148,11 @@
                         console.log(vm.categories, 'vm.categories');
                     })
                     .catch(function (err) {
-                        alert(err.message);
+                        if (err.response) {
+                            alert(err.response.data.error);
+                        } else {
+                            alert(err.message);
+                        }
                     });
             },
             showImg() {

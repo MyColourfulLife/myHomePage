@@ -37,7 +37,12 @@
                         window.location = '/posts/show?id=' + data.post._id;
                     })
                     .catch(function (err) {
-                        alert(err);
+                        if (err.response) {
+                            alert(err.response.data.error);
+                        } else {
+                            alert(err.message);
+                        }
+                        
                     })
             }
         }
