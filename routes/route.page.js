@@ -55,7 +55,7 @@ router.get('/posts/edit',function (req,res,next) {
   res.render('edit',{id});
 });
 
-router.get('',function (req,res,next) {
+router.get('/posts/delete',function (req,res,next) {
   var id = req.query.id;
   
   PostModel.findOneAndRemove(id, function (err, res) {
