@@ -90,6 +90,8 @@ a {
   color: #00B7FF;
   text-decoration: none;
   padding: 8px 15px;
+  background: transparent;
+  border-color: transparent;
 }
 
 .editBtn {
