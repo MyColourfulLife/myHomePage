@@ -55,10 +55,24 @@ router.get('/posts/edit',function (req,res,next) {
   res.render('edit',{id});
 });
 
+router.get('',function (req,res,next) {
+  var id = req.query.id;
+  
+  PostModel.findOneAndRemove(id, function (err, res) {
+    if (err) {
+      next(err);
+    } else {
+      res.redirect('back');
+    }
+  })
+});
+
+
 /* GET signup page. */
 router.get('/signup',function (req,res,next) {
   res.render('signup');
 });
+
 
 /* GET signin page. */
 router.get('/signin',function(req,res,next) {

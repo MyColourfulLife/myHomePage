@@ -99,19 +99,6 @@ router.patch('/posts/:id', function (req, res, next) {
   });
 });
 
-router.delete('/posts/:id', function (req, res, next) {
-  var id = req.params.id;
-  
-  PostModel.findOneAndRemove(id, function (err, res) {
-    if (err) {
-      next(err);
-    } else {
-      res.end();
-    }
-  })
-
-});
-
 
 
 /** 获取文章数据*/
