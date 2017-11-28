@@ -41,6 +41,12 @@ router.get('/posts/show',function (req,res,next) {
 
   PostModel.findOne({_id:id},function (err,post) {
     
+    if (err) {
+      next(err);
+      return;
+    }
+
+
     post.mkContent = marked(post.content);
 
     res.render('show',{post});
