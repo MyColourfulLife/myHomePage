@@ -25,6 +25,7 @@ router.get("/posts/category", function(req, res, next) {
   let parmas = {};
   parmas.categoryId = req.query.id;
   parmas.type = req.query.type;
+
   res.render('categoryPage',{parmas});
 });
 
